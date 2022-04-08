@@ -6,6 +6,9 @@
 // D-- AGREGAR A LA IZQ
 // E-- LOCAL STORAGE
 
+// 0- obtengo lo que hay en el local storage
+const listDrinksStorage = JSON.parse(localStorage.getItem('listDrinksStorage'));
+
 // 1- traigo el ul para poder pintar el coctail
 const cocList = document.querySelector('.js_cocList');
 const favList = document.querySelector('.js_favList');
@@ -27,6 +30,7 @@ search.addEventListener('keyup', handleInput);
 
 // 5- fetch para obtener datos + funcion de pintar
 //local storage
+
 function fetchCall(searchedDrink) {
   fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchedDrink}`
