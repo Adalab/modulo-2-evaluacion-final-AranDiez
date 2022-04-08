@@ -26,6 +26,7 @@ function handleInput(event) {
 search.addEventListener('keyup', handleInput);
 
 // 5- fetch para obtener datos + funcion de pintar
+//local storage
 function fetchCall(searchedDrink) {
   fetch(
     `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchedDrink}`

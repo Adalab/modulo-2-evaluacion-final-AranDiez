@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 .body {
-  /* background-color: rgb(70, 165, 194); */
   background-color: rgb(169, 206, 217);
 }
 .main {
@@ -15,12 +14,14 @@
   font-family: 'Annie Use Your Telescope';
 }
 .main__section1--title {
-  font-size: 80px;
+  font-size: 40px;
+  text-align: center;
 }
 .main__section1--form {
   display: flex;
   justify-content: center;
-  margin: 20px;
+  margin: 0 auto;
+  width: 50vw;
 }
 .input {
   margin: 10px;
