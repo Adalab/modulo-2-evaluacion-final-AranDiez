@@ -9,16 +9,19 @@
   align-items: center;
   margin: 20px;
 }
-.main__section2 {
+.section2 {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: 10px;
 }
-.main__section2--favourites {
+.favourites {
   margin: 40px;
 }
 .favCoctail,
-.coctail {
+.drink {
   list-style: none;
+}
+.imgDrink {
+  width: 70px;
 }
