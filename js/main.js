@@ -2,7 +2,9 @@
 
 // A-- OBTENER DATOS CON LOS QUE TENGO QUE TRABAJAR
 // B-- PINTAR LOS DATOS EN EL HTML (segun input usuaria)
-// C-- MARCAR Y DESMARCAR FAVORITOS (y añadir a la izquierda)
+// C-- MARCAR Y DESMARCAR FAVORITOS
+// D-- AGREGAR A LA IZQ
+// E-- LOCAL STORAGE
 
 // 1- traigo el ul para poder pintar el coctail
 const cocList = document.querySelector('.js_cocList');
@@ -52,9 +54,32 @@ function paintCoctails() {
 function drinClickListener() {
   const liCoctail = document.querySelectorAll('.js_drink');
   for (const drink of liCoctail) {
-    drink.addEventListener('click', handleClicCoctail);
+    drink.addEventListener('click', handleClickCoctail);
   }
 }
-function handleClicCoctail(event) {
+
+// 8 - hacer array favoritos
+let favorites = [];
+
+//estoy escuchando el click y sacando el valor del id (idDrinkSelected = id de cada coctail)
+function handleClickCoctail(event) {
   const idDrinkSelected = event.currentTarget.id;
+  //me busca un elemento en el listado de todas las bebidas
+  const drinkFound = coctailList.find((fav) => {
+    return fav.idDrink === idDrinkSelected;
+  });
+  //ahora miro si esta en el listado de favoritos
+  const favoriteIndex = favorites.findIndex((fav) => {
+    return fav.idDrink === idDrinkSelected;
+  });
+  // ahora actua en consecuencia (si es -1 es que no está)
+  if (favoriteIndex === -1) {
+    favorites.push(drinkFound);
+  } else {
+    favorites.splice(favoriteIndex, 1);
+  }
+  console.log(favorites);
+
+  // 9 - Ahora necesito que me cambie las clases
+  //   paintPalettes(coctailList);
 }
