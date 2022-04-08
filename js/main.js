@@ -52,13 +52,14 @@ function paintCoctails() {
       classFav = '';
     }
     html += `<li class="js_drink drink ${classFav}" id=${drink.idDrink}>`;
-    html += `<h3 class="js_titleDrink">${drink.strDrink}</h3>`;
+    html += `<h3 class="js_titleDrink titleDrink">${drink.strDrink}</h3>`;
     html += `<img class="js_imgDrink imgDrink" src="${drink.strDrinkThumb}" alt="coctail" />`;
     html += `</li>`;
   }
   cocList.innerHTML = html;
   //escuchar click favorito
   drinClickListener();
+  paintFavs();
 }
 
 // 7 - escuchar cuando el usuario hace click en el cocktail
@@ -94,4 +95,26 @@ function handleClickCoctail(event) {
   // 9 - Ahora necesito que me cambie las clases
   // cuando paint pinta pregunta ¿eres un favorito? y ya añade la clase o no
   paintCoctails();
+}
+
+// 10 - funcion que pinta en favoritos segun el array
+function paintFavs() {
+  let html = '';
+  for (const drink of favourites) {
+    let classFav = '';
+    //antes de pintar miro si es favorita o no
+    const favoriteIndex = favourites.findIndex((fav) => {
+      return fav.idDrink === drink.idDrink;
+    });
+    if (favoriteIndex !== -1) {
+      classFav = 'fav';
+    } else {
+      classFav = '';
+    }
+    html += `<li class="js_favDrink drink ${classFav}" id=${drink.idDrink}>`;
+    html += `<h3 class="js_titleFavDrink titleFavDrink">${drink.strDrink}</h3>`;
+    html += `<img class="js_imgFavDrink imgDrink" src="${drink.strDrinkThumb}" alt="coctail" />`;
+    html += `</li>`;
+  }
+  favList.innerHTML = html;
 }

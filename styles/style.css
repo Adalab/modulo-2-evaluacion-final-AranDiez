@@ -3,30 +3,82 @@
   padding: 0;
   box-sizing: border-box;
 }
+.body {
+  /* background-color: rgb(70, 165, 194); */
+  background-color: rgb(169, 206, 217);
+}
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px;
+  font-family: 'Annie Use Your Telescope';
 }
-.section2 {
+.main__section1--title {
+  font-size: 80px;
+}
+.main__section1--form {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+.input {
+  margin: 10px;
+  font-size: 30px;
+  font-family: 'Annie Use Your Telescope';
+}
+.searchButton,
+.resetButton {
+  margin: 10px;
+  font-size: 30px;
+  font-family: 'Annie Use Your Telescope';
+  padding: 10px;
+}
+.main__section2 {
   display: flex;
   flex-direction: row;
-  align-items: center;
   margin: 10px;
 }
-.favourites {
-  margin: 40px;
+.listTitle,
+.favouritesTitle {
+  font-size: 30px;
+  padding: 20px;
+}
+.imgDrink,
+.imgFavDrink {
+  width: 200px;
+}
+.favourites,
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.titleDrink,
+.titleFavDrink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.drink {
+  font-size: 20px;
+  margin: 10px;
+  color: #4d364d;
+  background-color: #eee7f1;
 }
 .favCoctail,
 .drink {
   list-style: none;
 }
-.imgDrink,
-.imgFavDrink {
-  width: 70px;
+
+/* 
+
+.favourites {
+  margin-left: 40px;
 }
+ */
 
 .fav {
-  background-color: rgb(171, 74, 193);
+  background-color: #4d364d;
+  color: #f5d3ff;
 }
