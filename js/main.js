@@ -8,6 +8,7 @@
 
 // 1- traigo el ul para poder pintar el coctail
 const cocList = document.querySelector('.js_cocList');
+const favList = document.querySelector('.js_favList');
 // 2- traigo input para escuchar lo que busca
 const search = document.querySelector('.js_input');
 // 3- hago variable para guardar las bebidas. las guardo con (coctailList = data.drinks) del fetch.
@@ -40,7 +41,17 @@ function fetchCall(searchedDrink) {
 function paintCoctails() {
   let html = '';
   for (const drink of coctailList) {
-    html += `<li class="js_drink drink" id=${drink.idDrink}>`;
+    let classFav = '';
+    //antes de pintar miro si es favorita o no
+    const favoriteIndex = favourites.findIndex((fav) => {
+      return fav.idDrink === drink.idDrink;
+    });
+    if (favoriteIndex !== -1) {
+      classFav = 'fav';
+    } else {
+      classFav = '';
+    }
+    html += `<li class="js_drink drink ${classFav}" id=${drink.idDrink}>`;
     html += `<h3 class="js_titleDrink">${drink.strDrink}</h3>`;
     html += `<img class="js_imgDrink imgDrink" src="${drink.strDrinkThumb}" alt="coctail" />`;
     html += `</li>`;
@@ -59,7 +70,7 @@ function drinClickListener() {
 }
 
 // 8 - hacer array favoritos
-let favorites = [];
+let favourites = [];
 
 //estoy escuchando el click y sacando el valor del id (idDrinkSelected = id de cada coctail)
 function handleClickCoctail(event) {
@@ -69,17 +80,18 @@ function handleClickCoctail(event) {
     return fav.idDrink === idDrinkSelected;
   });
   //ahora miro si esta en el listado de favoritos
-  const favoriteIndex = favorites.findIndex((fav) => {
+  const favoriteIndex = favourites.findIndex((fav) => {
     return fav.idDrink === idDrinkSelected;
   });
   // ahora actua en consecuencia (si es -1 es que no está)
   if (favoriteIndex === -1) {
-    favorites.push(drinkFound);
+    favourites.push(drinkFound);
   } else {
-    favorites.splice(favoriteIndex, 1);
+    favourites.splice(favoriteIndex, 1);
   }
-  console.log(favorites);
+  console.log(favourites);
 
   // 9 - Ahora necesito que me cambie las clases
-  //   paintPalettes(coctailList);
+  // cuando paint pinta pregunta ¿eres un favorito? y ya añade la clase o no
+  paintCoctails();
 }

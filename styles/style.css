@@ -22,7 +22,8 @@
 .drink {
   list-style: none;
 }
-.imgDrink {
+.imgDrink,
+.imgFavDrink {
   width: 70px;
 }
 
