@@ -8,6 +8,40 @@
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
+    <main class="main">
+      <section class="main__section1">
+        <h1>Buscador Cócteles</h1>
+        <form>
+          <input type="text" name="cóctail" class="js_input input" />
+          <button type="button" class="js_searchButton searchButton">
+            Buscar
+          </button>
+          <button type="button" class="js_resetButton resetButton">
+            Reset
+          </button>
+        </form>
+      </section>
+      <section class="main__section2">
+        <div class="main__section2--favourites">
+          <h2 class="main__section2--favouritesTitle">Cócteles Favoritos</h2>
+          <ul class="js_favList favList">
+            <li class="js__favCoctail favCoctail">
+              <h3>Nombre coctail</h3>
+              <img class="" src="./images/coctail-doe.jpg" alt="coctail" />
+            </li>
+          </ul>
+        </div>
+        <div class="main__section2--list">
+          <h2 class="main__section2--listTitle">Lista</h2>
+          <ul class="js_cocList cocList">
+            <li class="js__coctail coctail">
+              <h3>Nombre coctail</h3>
+              <img class="" src="./images/coctail-doe.jpg" alt="coctail" />
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
     <script type="text/javascript" src="./js/main.js"></script>
   </body>
 </html>

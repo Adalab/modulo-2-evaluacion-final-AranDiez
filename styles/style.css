@@ -3,3 +3,22 @@
   padding: 0;
   box-sizing: border-box;
 }
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+.main__section2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px;
+}
+.main__section2--favourites {
+  margin: 40px;
+}
+.favCoctail,
+.coctail {
+  list-style: none;
+}
