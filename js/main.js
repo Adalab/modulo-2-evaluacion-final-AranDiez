@@ -5,6 +5,7 @@
 // C-- MARCAR Y DESMARCAR FAVORITOS
 // D-- AGREGAR A LA IZQ
 // E-- LOCAL STORAGE
+// F-- BOTON RESET
 
 // 0- obtengo lo que hay en el local storage
 const listDrinksStorage = JSON.parse(localStorage.getItem('listDrinksStorage'));
@@ -17,6 +18,8 @@ const search = document.querySelector('.js_input');
 const button = document.querySelector('.js_searchButton');
 // 3- hago variable para guardar las bebidas. las guardo con (coctailList = data.drinks) del fetch.
 let coctailList = [];
+// 10- traigo el boton de reset para que lo pueda escuchar
+const reset = document.querySelector('.js_resetButton');
 
 // 4 - MANEJADORA
 //hago un listener para que escuche el input y filtre en fetch
@@ -124,3 +127,14 @@ function paintFavs() {
   }
   favList.innerHTML = html;
 }
+
+// 11 -- escueho el boton de reset
+// al escuchar el boton de reset hago que favourites se vacie y llamo de nuevo a paintcoctails para que los quite de la lista
+function handleReset(event) {
+  event.preventDefault();
+  favourites.splice(0, favourites.length);
+  paintCoctails();
+  console.log(favourites);
+}
+
+reset.addEventListener('click', handleReset);
