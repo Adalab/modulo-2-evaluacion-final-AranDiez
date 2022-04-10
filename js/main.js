@@ -12,8 +12,9 @@ const listDrinksStorage = JSON.parse(localStorage.getItem('listDrinksStorage'));
 // 1- traigo el ul para poder pintar el coctail
 const cocList = document.querySelector('.js_cocList');
 const favList = document.querySelector('.js_favList');
-// 2- traigo input para escuchar lo que busca
+// 2- traigo input para escuchar lo que busca y oto para buscarlo
 const search = document.querySelector('.js_input');
+const button = document.querySelector('.js_searchButton');
 // 3- hago variable para guardar las bebidas. las guardo con (coctailList = data.drinks) del fetch.
 let coctailList = [];
 
@@ -26,7 +27,7 @@ function handleInput(event) {
   fetchCall(searchedDrink);
 }
 
-search.addEventListener('keyup', handleInput);
+button.addEventListener('click', handleInput);
 
 // 5- fetch para obtener datos + funcion de pintar
 //local storage
