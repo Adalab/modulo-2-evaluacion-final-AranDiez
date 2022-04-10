@@ -19,15 +19,16 @@
 }
 .main__section1--form {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin: 0 auto;
   width: 50vw;
 }
 .input {
-  width: 30vw;
   margin: 10px;
   font-size: 30px;
   font-family: 'Annie Use Your Telescope';
+  text-align: center;
 }
 .searchButton,
 .resetButton {
@@ -38,13 +39,16 @@
 }
 .main__section2 {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 10px;
+}
+.cocList {
 }
 .listTitle,
 .favouritesTitle {
   font-size: 30px;
   padding: 20px;
+  text-align: center;
 }
 .imgDrink,
 .imgFavDrink {
@@ -80,10 +84,35 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  margin-top: 5px;
+  margin: 5px;
 }
 
 .fav {
   background-color: #4d364d;
   color: #f5d3ff;
+}
+
+@media all and (min-width: 900px) {
+  .main__section1--form {
+    flex-direction: row;
+  }
+  .main__section2 {
+    flex-direction: row;
+  }
+  .main__section2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cocList,
+  .favList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: scroll;
+  }
+}
+@media all and (min-width: 1400px) {
+  .cocList,
+  .favList {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

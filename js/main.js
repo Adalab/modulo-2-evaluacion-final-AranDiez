@@ -37,20 +37,14 @@ button.addEventListener('click', handleInput);
 //local storage
 
 function fetchCall(searchedDrink) {
-  if (listDrinksStorage !== null) {
-    coctailList = listDrinksStorage;
-    paintCoctails();
-  } else {
-    fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchedDrink}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        coctailList = data.drinks;
-        localStorage.setItem('listDrinksStorage', JSON.stringify(coctailList));
-        paintCoctails();
-      });
-  }
+  fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchedDrink}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      coctailList = data.drinks;
+      paintCoctails();
+    });
 }
 
 // 6 - hago funcion para pintar coctail
@@ -128,9 +122,9 @@ function paintFavs() {
       classFav = '';
     }
     html += `<li class="js_favDrink drink ${classFav}" id=${drink.idDrink}>`;
-    html += `<button type="button" class="js_eraseButton eraseButton">X</button>`;
     html += `<h3 class="js_titleFavDrink titleFavDrink">${drink.strDrink}</h3>`;
     html += `<img class="js_imgFavDrink imgDrink" src="${drink.strDrinkThumb}" alt="coctail" />`;
+    html += `<button type="button" class="js_eraseButton eraseButton">X</button>`;
     html += `</li>`;
   }
   favList.innerHTML = html;
