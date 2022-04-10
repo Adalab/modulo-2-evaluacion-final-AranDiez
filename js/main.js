@@ -6,6 +6,7 @@
 // D-- AGREGAR A LA IZQ
 // E-- LOCAL STORAGE
 // F-- BOTON RESET
+// G-- BOTON QUITAR FAVORITOS
 
 // 0- obtengo lo que hay en el local storage
 const listDrinksStorage = JSON.parse(localStorage.getItem('listDrinksStorage'));
@@ -121,6 +122,7 @@ function paintFavs() {
       classFav = '';
     }
     html += `<li class="js_favDrink drink ${classFav}" id=${drink.idDrink}>`;
+    html += `<button type="button" class="js_eraseButton eraseButton">X</button>`;
     html += `<h3 class="js_titleFavDrink titleFavDrink">${drink.strDrink}</h3>`;
     html += `<img class="js_imgFavDrink imgDrink" src="${drink.strDrinkThumb}" alt="coctail" />`;
     html += `</li>`;
@@ -138,3 +140,12 @@ function handleReset(event) {
 }
 
 reset.addEventListener('click', handleReset);
+
+// 13 -- escucho boton quitar de fav
+function drinClickErase() {
+  const eraseButton = document.querySelectorAll('.js_eraseButton');
+  for (const drink of eraseButton) {
+    eraseButton.addEventListener('click', handleClickCoctail);
+  }
+  console.log(`hiii`);
+}
