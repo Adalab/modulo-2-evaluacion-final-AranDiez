@@ -37,14 +37,20 @@ button.addEventListener('click', handleInput);
 //local storage
 
 function fetchCall(searchedDrink) {
-  fetch(
-    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchedDrink}`
-  )
-    .then((response) => response.json())
-    .then((data) => {
-      coctailList = data.drinks;
-      paintCoctails();
-    });
+  if (listDrinksStorage !== null) {
+    coctailList = listDrinksStorage;
+    paintCoctails();
+  } else {
+    fetch(
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchedDrink}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        coctailList = data.drinks;
+        localStorage.setItem('listDrinksStorage', JSON.stringify(coctailList));
+        paintCoctails();
+      });
+  }
 }
 
 // 6 - hago funcion para pintar coctail
@@ -147,5 +153,5 @@ function drinClickErase() {
   for (const drink of eraseButton) {
     eraseButton.addEventListener('click', handleClickCoctail);
   }
-  console.log(`hiii`);
+  console.log(`drinClickErase is on`);
 }
