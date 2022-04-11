@@ -95,6 +95,7 @@ function paintCoctails() {
   //escuchar click favorito
   drinClickListener();
   paintFavs();
+  // drinClickButton();
 }
 
 // 7 - escuchar cuando el usuario hace click en el cocktail
@@ -122,7 +123,6 @@ function handleClickCoctail(event) {
   } else {
     favourites.splice(favoriteIndex, 1);
   }
-  console.log(favourites);
   writeInLocalStorage();
   // 9 - Ahora necesito que me cambie las clases
   // cuando paint pinta pregunta ¿eres un favorito? y ya añade la clase o no
@@ -146,10 +146,11 @@ function paintFavs() {
     html += `<li class="js_favDrink drink ${classFav}" id=${drink.idDrink}>`;
     html += `<h3 class="js_titleFavDrink titleFavDrink">${drink.strDrink}</h3>`;
     html += `<img class="js_imgFavDrink imgDrink" src="${drink.strDrinkThumb}" alt="coctail" />`;
-    html += `<button type="button" class="js_eraseButton eraseButton">X</button>`;
+    html += `<button type="button" class="js_eraseButton eraseButton" data-id=${drink.idDrink}>X</button>`;
     html += `</li>`;
   }
   favList.innerHTML = html;
+  drinkClickButton();
 }
 
 // 12 -- escueho el boton de reset
@@ -161,14 +162,13 @@ function handleReset(event) {
   coctailList = [];
   paintCoctails();
   writeInLocalStorage();
-  console.log(favourites);
 }
 
 reset.addEventListener('click', handleReset);
 
 // 13 ------------- BONUS DE X EN FAVORITOS
 function handleXButton(event) {
-  const idDrinkSelected = event.currentTarget.id;
+  const idDrinkSelected = event.currentTarget.dataset.id;
   //me busca un elemento en el listado de todas las bebidas
   const drinkFound = coctailList.find((fav) => {
     return fav.idDrink === idDrinkSelected;
@@ -183,7 +183,6 @@ function handleXButton(event) {
   } else {
     favourites.splice(favoriteIndex, 1);
   }
-  console.log(favourites);
 
   // 9 - Ahora necesito que me cambie las clases
   // cuando paint pinta pregunta ¿eres un favorito? y ya añade la clase o no
@@ -191,10 +190,9 @@ function handleXButton(event) {
 }
 
 //------------escuchar click en x
-function drinClickButton() {
+function drinkClickButton() {
   const eraseButton = document.querySelectorAll('.js_eraseButton');
-  for (const drink of liCoctail) {
+  for (const drink of eraseButton) {
     drink.addEventListener('click', handleXButton);
   }
 }
-//--------------------------
