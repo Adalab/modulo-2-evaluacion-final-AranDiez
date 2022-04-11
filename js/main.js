@@ -166,27 +166,26 @@ function handleReset(event) {
 
 reset.addEventListener('click', handleReset);
 
-// 13 ------------- BONUS DE X EN FAVORITOS
+// 13 ------------- X EN FAVORITOS
 function handleXButton(event) {
   const idDrinkSelected = event.currentTarget.dataset.id;
-  //me busca un elemento en el listado de todas las bebidas
+
   const drinkFound = coctailList.find((fav) => {
     return fav.idDrink === idDrinkSelected;
   });
-  //ahora miro si esta en el listado de favoritos
+
   const favoriteIndex = favourites.findIndex((fav) => {
     return fav.idDrink === idDrinkSelected;
   });
-  // ahora actua en consecuencia (si es -1 es que no está)
+
   if (favoriteIndex === -1) {
     favourites.push(drinkFound);
   } else {
     favourites.splice(favoriteIndex, 1);
   }
 
-  // 9 - Ahora necesito que me cambie las clases
-  // cuando paint pinta pregunta ¿eres un favorito? y ya añade la clase o no
   paintCoctails();
+  writeInLocalStorage();
 }
 
 //------------escuchar click en x

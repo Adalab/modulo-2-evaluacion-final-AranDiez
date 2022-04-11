@@ -37,6 +37,11 @@
   font-family: 'Annie Use Your Telescope';
   padding: 10px;
 }
+.searchButton:hover,
+.resetButton:hover {
+  background-color: #4d364d;
+  color: #eee7f1;
+}
 .main__section2 {
   display: flex;
   flex-direction: column;
