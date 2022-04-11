@@ -7,6 +7,7 @@
 // E-- LOCAL STORAGE
 // F-- BOTON RESET
 // G-- BOTON QUITAR FAVORITOS
+// H-- DARLE UN ESTILO MINIMO CON CSS
 
 // 1- traigo el ul para poder pintar el coctail
 const cocList = document.querySelector('.js_cocList');
@@ -16,8 +17,10 @@ let search = document.querySelector('.js_input');
 const button = document.querySelector('.js_searchButton');
 // 3- hago variable para guardar las bebidas. las guardo con (coctailList = data.drinks) del fetch.
 let coctailList = [];
-// 10- traigo el boton de reset para que lo pueda escuchar
+// 11- traigo el boton de reset para que lo pueda escuchar
 const reset = document.querySelector('.js_resetButton');
+// 8 - hacer array favoritos
+let favourites = [];
 
 // 4 - MANEJADORA
 //hago un listener para que escuche el input y filtre en fetch
@@ -52,21 +55,22 @@ function imgEmpty() {
   }
 }
 
-// // 0- guardo en el local storage
-// const writeInLocalStorage = () => {
-//   const stringifyFav = JSON.stringify(favourites);
-//   localStorage.setItem('favourite', stringifyFav);
-// };
-// // leo lo que hay en local storage
-// const readFromLocalStorage = () => {
-//   const drinksLocalStorage = localStorage.getItem('favourite');
-//   if (drinksLocalStorage !== null) {
-//     const listFav = JSON.parse(drinksLocalStorage);
-//     favourites = listFav;
-//     paintFavs();
-//   }
-// };
-// readFromLocalStorage();
+/// 0- local storage
+// leo lo que hay en local storage
+const readFromLocalStorage = () => {
+  const drinksLocalStorage = localStorage.getItem('favourite');
+  if (drinksLocalStorage !== null) {
+    favourites = JSON.parse(drinksLocalStorage);
+    paintFavs();
+  }
+};
+readFromLocalStorage();
+
+// guardo en el local storage
+const writeInLocalStorage = () => {
+  const stringifyFav = JSON.stringify(favourites);
+  localStorage.setItem('favourite', stringifyFav);
+};
 
 // 6 - hago funcion para pintar coctail
 function paintCoctails() {
@@ -91,7 +95,6 @@ function paintCoctails() {
   //escuchar click favorito
   drinClickListener();
   paintFavs();
-  // writeInLocalStorage();
 }
 
 // 7 - escuchar cuando el usuario hace click en el cocktail
@@ -101,9 +104,6 @@ function drinClickListener() {
     drink.addEventListener('click', handleClickCoctail);
   }
 }
-
-// 8 - hacer array favoritos
-let favourites = [];
 
 //estoy escuchando el click y sacando el valor del id (idDrinkSelected = id de cada coctail)
 function handleClickCoctail(event) {
@@ -123,7 +123,7 @@ function handleClickCoctail(event) {
     favourites.splice(favoriteIndex, 1);
   }
   console.log(favourites);
-
+  writeInLocalStorage();
   // 9 - Ahora necesito que me cambie las clases
   // cuando paint pinta pregunta ¿eres un favorito? y ya añade la clase o no
   paintCoctails();
@@ -152,7 +152,7 @@ function paintFavs() {
   favList.innerHTML = html;
 }
 
-// 11 -- escueho el boton de reset
+// 12 -- escueho el boton de reset
 // al escuchar el boton de reset hago que favourites se vacie y llamo de nuevo a paintcoctails para que los quite de la lista
 function handleReset(event) {
   event.preventDefault();
@@ -160,7 +160,41 @@ function handleReset(event) {
   search.value = '';
   coctailList = [];
   paintCoctails();
+  writeInLocalStorage();
   console.log(favourites);
 }
 
 reset.addEventListener('click', handleReset);
+
+// 13 ------------- BONUS DE X EN FAVORITOS
+function handleXButton(event) {
+  const idDrinkSelected = event.currentTarget.id;
+  //me busca un elemento en el listado de todas las bebidas
+  const drinkFound = coctailList.find((fav) => {
+    return fav.idDrink === idDrinkSelected;
+  });
+  //ahora miro si esta en el listado de favoritos
+  const favoriteIndex = favourites.findIndex((fav) => {
+    return fav.idDrink === idDrinkSelected;
+  });
+  // ahora actua en consecuencia (si es -1 es que no está)
+  if (favoriteIndex === -1) {
+    favourites.push(drinkFound);
+  } else {
+    favourites.splice(favoriteIndex, 1);
+  }
+  console.log(favourites);
+
+  // 9 - Ahora necesito que me cambie las clases
+  // cuando paint pinta pregunta ¿eres un favorito? y ya añade la clase o no
+  paintCoctails();
+}
+
+//------------escuchar click en x
+function drinClickButton() {
+  const eraseButton = document.querySelectorAll('.js_eraseButton');
+  for (const drink of liCoctail) {
+    drink.addEventListener('click', handleXButton);
+  }
+}
+//--------------------------
