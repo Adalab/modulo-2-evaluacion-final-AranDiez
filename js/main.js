@@ -8,14 +8,11 @@
 // F-- BOTON RESET
 // G-- BOTON QUITAR FAVORITOS
 
-// 0- obtengo lo que hay en el local storage
-const listDrinksStorage = JSON.parse(localStorage.getItem('listDrinksStorage'));
-
 // 1- traigo el ul para poder pintar el coctail
 const cocList = document.querySelector('.js_cocList');
 const favList = document.querySelector('.js_favList');
 // 2- traigo input para escuchar lo que busca y oto para buscarlo
-const search = document.querySelector('.js_input');
+let search = document.querySelector('.js_input');
 const button = document.querySelector('.js_searchButton');
 // 3- hago variable para guardar las bebidas. las guardo con (coctailList = data.drinks) del fetch.
 let coctailList = [];
@@ -34,35 +31,42 @@ function handleInput(event) {
 button.addEventListener('click', handleInput);
 
 // 5- fetch para obtener datos + funcion de pintar
-//local storage
-
-// function fetchCall(searchedDrink) {
-//   fetch(
-//     `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchedDrink}`
-//   )
-//     .then((response) => response.json())
-//     .then((data) => {
-//       coctailList = data.drinks;
-//       paintCoctails();
-//     });
-// }
 
 function fetchCall(searchedDrink) {
-  if (listDrinksStorage !== null) {
-    coctailList = listDrinksStorage;
-    paintCoctails();
-  } else {
-    fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchedDrink}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        coctailList = data.drinks;
-        localStorage.setItem('listDrinksStorage', JSON.stringify(coctailList));
-        paintCoctails();
-      });
+  fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchedDrink}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      coctailList = data.drinks;
+      imgEmpty();
+      paintCoctails();
+    });
+}
+function imgEmpty() {
+  for (const drink of coctailList) {
+    if (drink.strDrinkThumb === '') {
+      drink.strDrinkThumb =
+        'https://via.placeholder.com/210x295/ffffff/666666/?text=Missing_image';
+    }
   }
 }
+
+// // 0- guardo en el local storage
+// const writeInLocalStorage = () => {
+//   const stringifyFav = JSON.stringify(favourites);
+//   localStorage.setItem('favourite', stringifyFav);
+// };
+// // leo lo que hay en local storage
+// const readFromLocalStorage = () => {
+//   const drinksLocalStorage = localStorage.getItem('favourite');
+//   if (drinksLocalStorage !== null) {
+//     const listFav = JSON.parse(drinksLocalStorage);
+//     favourites = listFav;
+//     paintFavs();
+//   }
+// };
+// readFromLocalStorage();
 
 // 6 - hago funcion para pintar coctail
 function paintCoctails() {
@@ -87,6 +91,7 @@ function paintCoctails() {
   //escuchar click favorito
   drinClickListener();
   paintFavs();
+  // writeInLocalStorage();
 }
 
 // 7 - escuchar cuando el usuario hace click en el cocktail
@@ -152,17 +157,10 @@ function paintFavs() {
 function handleReset(event) {
   event.preventDefault();
   favourites.splice(0, favourites.length);
+  search.value = '';
+  coctailList = [];
   paintCoctails();
   console.log(favourites);
 }
 
 reset.addEventListener('click', handleReset);
-
-// 13 -- escucho boton quitar de fav
-function drinClickErase() {
-  const eraseButton = document.querySelectorAll('.js_eraseButton');
-  for (const drink of eraseButton) {
-    eraseButton.addEventListener('click', handleClickCoctail);
-  }
-  console.log(`drinClickErase is on`);
-}
