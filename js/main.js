@@ -19,6 +19,7 @@ const button = document.querySelector('.js_searchButton');
 let coctailList = [];
 // 11- traigo el boton de reset para que lo pueda escuchar
 const reset = document.querySelector('.js_resetButton');
+const log = document.querySelector('.js_log');
 // 8 - hacer array favoritos
 let favourites = [];
 
@@ -77,6 +78,7 @@ function paintCoctails() {
   let html = '';
   for (const drink of coctailList) {
     let classFav = '';
+    let fruitText = drink.strTags;
     //antes de pintar miro si es favorita o no
     const favoriteIndex = favourites.findIndex((fav) => {
       return fav.idDrink === drink.idDrink;
@@ -88,6 +90,13 @@ function paintCoctails() {
     }
     html += `<li class="js_drink drink ${classFav}" id=${drink.idDrink}>`;
     html += `<h3 class="js_titleDrink titleDrink">${drink.strDrink}</h3>`;
+    if (fruitText !== null) {
+      if (fruitText.includes('Fruity')) {
+        html += `<p class="js_tags">Sabor afrutado</p>`;
+      } else {
+        html += `<p class="js_tags">${drink.strTags}</p>`;
+      }
+    }
     html += `<img class="js_imgDrink imgDrink" src="${drink.strDrinkThumb}" alt="coctail" />`;
     html += `</li>`;
   }
@@ -195,3 +204,11 @@ function drinkClickButton() {
     drink.addEventListener('click', handleXButton);
   }
 }
+
+function handleLog(event) {
+  for (const drink of favourites) {
+    console.log(drink.strDrink);
+  }
+}
+
+log.addEventListener('click', handleLog);
